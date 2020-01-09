@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Property
 
+
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField()
     class Meta:

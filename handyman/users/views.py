@@ -3,6 +3,7 @@ from .forms import UserRegistrationForm, UserPropertyForm, ProfileForm
 from .models import Property
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
 
 
 
@@ -28,16 +29,26 @@ def register(request):
     return render(request, 'users/register.html', {'form':form, 'form_p':form_p})
 
 def profile(request):
-    if request.method == 'POST':
-        form_prof = ProfileForm(request.POST, instance=request.user)
-        form_prop = UserPropertyForm(request.POST, instance=request.user.property)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form_prof = ProfileForm(request.POST, instance=request.user)
+            form_prop = UserPropertyForm(request.POST, instance=request.user.property)
 
-        if form_prof.is_valid() and form_prop.is_valid():
-            form_prof.save()
-            form_prop.save()
-            messages.success(request, f'You have successfully updated your profile!')
-            return redirect('users-profile')
+            if form_prof.is_valid() and form_prop.is_valid():
+                form_prof.save()
+                form_prop.save()
+                messages.success(request, f'You have successfully updated your profile!')
+                return redirect('users-profile')
+        else:
+            form_prof = ProfileForm(instance=request.user)
+            form_prop = UserPropertyForm(instance=request.user.property)
+        return render(request, 'users/profile.html', {'form_prop': form_prop, 'form_prof':form_prof})
     else:
-        form_prof = ProfileForm(instance=request.user)
-        form_prop = UserPropertyForm(instance=request.user.property)
-    return render(request, 'users/profile.html', {'form_prop': form_prop, 'form_prof':form_prof})
+        if request.method == 'POST':
+            form = AuthenticationForm(request.POST)
+            if form.is_valid():
+
+                return render(request, 'main/post_list.html')
+        else:
+            form = AuthenticationForm()
+        return render(request, 'users/login.html', {'form':form})
