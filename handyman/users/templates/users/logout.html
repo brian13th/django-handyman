@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">You have been logged out!</legend>
+        </fieldset>
+
+            <small class="text-muted">
+                Want to Sign In again? <a class="ml-2" href="{% url 'users-login' %}">Sign In</a>
+            </small>
+    </div>
+{% endblock %}

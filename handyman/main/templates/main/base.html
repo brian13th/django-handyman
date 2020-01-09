@@ -29,14 +29,21 @@
       <!-- Blog Entries Column -->
       <div class="col-md-8">
 
-        <h1 class="my-4">Welcometo Handyman Platform
+        <h1 class="my-4">Welcome to Handyman Platform
           <div><small>Find the right man for the right work!</small></div>
         </h1>
-
+        {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+        {% endif %}
         {% block content %}
         {% endblock %}
 
-{% include "main/includes/pagination.html" %}
+        {% block pagination %}
+        {% endblock %}
 
       </div>
 {% include "main/includes/sidewidgets.html" %}
