@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm, UserPropertyForm, ProfileForm
+from django.contrib.auth.decorators import login_required
 from .models import Property
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -27,28 +28,18 @@ def register(request):
         form = UserRegistrationForm()
         form_p = UserPropertyForm()
     return render(request, 'users/register.html', {'form':form, 'form_p':form_p})
-
+@login_required
 def profile(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form_prof = ProfileForm(request.POST, instance=request.user)
-            form_prop = UserPropertyForm(request.POST, instance=request.user.property)
+    if request.method == 'POST':
+        form_prof = ProfileForm(request.POST, instance=request.user)
+        form_prop = UserPropertyForm(request.POST, instance=request.user.property)
 
-            if form_prof.is_valid() and form_prop.is_valid():
-                form_prof.save()
-                form_prop.save()
-                messages.success(request, f'You have successfully updated your profile!')
-                return redirect('users-profile')
-        else:
-            form_prof = ProfileForm(instance=request.user)
-            form_prop = UserPropertyForm(instance=request.user.property)
-        return render(request, 'users/profile.html', {'form_prop': form_prop, 'form_prof':form_prof})
+        if form_prof.is_valid() and form_prop.is_valid():
+            form_prof.save()
+            form_prop.save()
+            messages.success(request, f'You have successfully updated your profile!')
+            return redirect('users-profile')
     else:
-        if request.method == 'POST':
-            form = AuthenticationForm(request.POST)
-            if form.is_valid():
-
-                return render(request, 'main/post_list.html')
-        else:
-            form = AuthenticationForm()
-        return render(request, 'users/login.html', {'form':form})
+        form_prof = ProfileForm(instance=request.user)
+        form_prop = UserPropertyForm(instance=request.user.property)
+    return render(request, 'users/profile.html', {'form_prop': form_prop, 'form_prof':form_prof})
