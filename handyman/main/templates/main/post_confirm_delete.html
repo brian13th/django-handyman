@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+{% block content %}
+  <!-- Blog Post -->
+  <div class="card mb-4">
+      <!-- <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap"> -->
+      <form method="POST">
+            {% csrf_token %}
+        <div class="card-body">
+          <h2 class="card-title">Delete advertisment</h2>
+          <p class="card-text">Are you sure you want to delete the post "{{ post.title }}"</p>
+          <div class="form-group">
+              <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+              <a class="btn btn-outline-secondary" href="{% url 'main-detail' post.id %}">Cancel</a>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          Advertize will be deleted permanently
+        </div>
+      </form>
+  </div>
+{% endblock %}
