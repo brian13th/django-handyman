@@ -4,11 +4,41 @@
   <div class="card mb-4">
       <!-- <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap"> -->
       <div class="card-body">
-        <h2 class="card-title">Contact Information</h2>
-        <a href="#" class="btn btn-primary">Empty</a>
+        <h2 class="card-title">Contact Information for {{ author.username }}</h2>
+        <table class="table">
+        <tbody>
+          <tr>
+            <th scope="row">Email Address:</th>
+            <td>{{ author.email }}</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">First Name:</th>
+            <td>{{ author.first_name }}</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">Last Name:</th>
+            <td>{{ author.last_name }}</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">Registered as:</th>
+            <td>{{ author.property }}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="#">Contact</a>
+        <!-- <a href="#" class="btn btn-primary">Empty</a> -->
       </div>
       <div class="card-footer text-muted">
-        Not yet implemented
+        For any problem contact site administrator.
         <a href="#"></a>
       </div>
   </div>

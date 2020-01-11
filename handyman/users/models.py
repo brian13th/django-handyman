@@ -19,4 +19,4 @@ class Property(models.Model):
         verbose_name_plural = "Properties"
 
     def __str__(self):
-        return self.user.username + ' is ' + self.status
+        return self.status

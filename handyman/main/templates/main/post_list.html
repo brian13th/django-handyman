@@ -7,16 +7,16 @@
       <div class="card-body">
         <h2 class="card-title">{{ post.title }}</h2>
         <p class="card-text">{{ post.context }}</p>
-        <a href="#" class="btn btn-primary">Read More &rarr;</a>
+        <a href="{% url 'main-detail' post.id %}" class="btn btn-primary">Read More</a>
       </div>
       <div class="card-footer text-muted">
         Posted on {{ post.date_posted| date:"F d, Y" }} by
         {% if user == post.author and user.is_authenticated %}
           <a href="{% url 'users-profile' %}">{{ post.author }}</a>
         {% elif user.is_authenticated %}
-          <a href="{% url 'main-contact' %}">{{ post.author }}</a>
+          <a href="{% url 'main-contact' post.author %}">{{ post.author }}</a>
         {% else %}
-          <a href="{% url 'main-contact' %}">{{ post.author }}</a>
+          <a href="{% url 'main-contact' post.author %}">{{ post.author }}</a>
         {% endif %}
       </div>
     {% endfor %}
