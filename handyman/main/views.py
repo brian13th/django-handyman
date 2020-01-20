@@ -9,6 +9,7 @@ from .models import Post
 
 class PostListView(ListView):
     model = Post
+    paginate_by = 3
 
 class PostDetailView(DetailView):
     model = Post
