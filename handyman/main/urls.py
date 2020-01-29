@@ -6,7 +6,8 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
-    contact
+    contact,
+    PostListMyViews
     )
 
 name = 'main'
@@ -17,5 +18,6 @@ urlpatterns = [
     path('post/create/', PostCreateView.as_view(), name='main-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='main-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='main-delete'),
-    path('contact/<author>/', contact, name='main-contact')
+    path('contact/<author>/', contact, name='main-contact'),
+    path('mylist/', PostListMyViews.as_view(), name='main-mylist'),
 ]

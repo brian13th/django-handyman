@@ -49,3 +49,12 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def contact(request, author):
     get_author = User.objects.get(username=author)
     return render(request, 'main/contact.html', {'author': get_author})
+
+class PostListMyViews(ListView):
+    model = Post
+    paginate_by = 5
+    template_name = 'main/post_my_list.html'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(author=self.request.user)
